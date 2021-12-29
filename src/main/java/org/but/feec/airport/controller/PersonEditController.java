@@ -76,18 +76,29 @@ public class PersonEditController {
     }
 
     @FXML
+    public void handleRemovePersonButton(ActionEvent event) {
+    	Long id = Long.valueOf(idTextField.getText());
+    	PersonEditView personEditView = new PersonEditView();
+        personEditView.setId(id);
+        
+        personService.removePerson(personEditView);
+        
+        personEditedConfirmationDialog();
+    }
+    
+    
+    @FXML
     public void handleEditPersonButton(ActionEvent event) {
-        String passport_number = emailTextField.getText();
-        String last_name = surnameTextField.getText();
+        String email = emailTextField.getText();
+        String surname = surnameTextField.getText();
         String first_name = nameTextField.getText();
         Long id = Long.valueOf(idTextField.getText());
 
         PersonEditView personEditView = new PersonEditView();
         personEditView.setId(id);
-        personEditView.setPassport_number(passport_number);
+        personEditView.setEmail(email);
         personEditView.setFirst_name(first_name);
-        personEditView.setLast_name(last_name);
-
+        personEditView.setSurname(surname);
 
         personService.editPerson(personEditView);
 

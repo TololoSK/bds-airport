@@ -29,6 +29,7 @@
             <TextField fx:id="idTextField" promptText="Enter ID" GridPane.columnIndex="1" />
             </children>
         </GridPane>
-        <Button fx:id="editButton" layoutX="493.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Edit" />
+        <Button fx:id="editButton" onAction="#handleEditPersonButton" layoutX="493.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Edit" />
+        <Button fx:id="removeButton" onAction="#handleRemovePersonButton" layoutX="21.0" layoutY="398.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Remove" />
     </children>
 </AnchorPane>

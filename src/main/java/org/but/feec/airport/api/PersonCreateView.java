@@ -1,44 +1,67 @@
 package org.but.feec.airport.api;
-import java.util.Arrays;
 public class PersonCreateView {
 
-    private String username;
     private String first_name;
-    private String last_name;
-    private String security_check;
-    char [] password;
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private String surname;
+    private String email;
+    private String position;
+    private String salary;
+    private String primary_account_number;
+    private String password;
+    
     public String getFirst_name() {
         return first_name;
     }
-    public void setFirst_name(String first_name){this.first_name=first_name;}
-    public String getLast_name() {
-        return last_name;}
-    public void setLast_name(String last_name) {this.last_name=last_name;}
-    public String getSecurity_check() {return security_check;}
-    public void setSecurity_check(String security_check) {this.security_check =security_check;}
-    public char[] getPassword() {
-        return password;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
-
-    public void setPassword(char[] password) {
-        this.password = password;
+    public String getSurname() {
+        return surname;
     }
-
-    @Override
-    public String toString() {
-        return "PersonCreateView{" +
-                "username='" + username + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", check_results='" + security_check + '\'' +
-                ", password=" + Arrays.toString(password) +
-                '}';
+    public void setSurname(String surname){
+    	this.surname=surname;
     }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+    	this.email=email;
+	}
+    public String getPosition() {
+    	return position;
+    }
+    public void setPosition(String position) {
+    	this.position = position;
+    }
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+	public String getPrimary_account_number() {
+		return primary_account_number;
+	}
+	public void setPrimary_account_number(String primary_account_number) {
+		this.primary_account_number = primary_account_number;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	 @Override
+	    public String toString() {
+	        return "PersonCreateView{" +
+	                ", first_name='" + first_name + '\'' +
+	                ", last_name='" + surname + '\'' +
+	                ", check_results='" + email + '\'' +
+	                ", password=" + password + '\'' +
+	                ", position=" + position + '\'' +
+	                ", salary=" + salary + '\'' +
+	                ", primary_account_number=" + primary_account_number +
+	                '}';
+	    }
 }

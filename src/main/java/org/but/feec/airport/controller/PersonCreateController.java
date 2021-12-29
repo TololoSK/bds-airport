@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import org.but.feec.airport.api.PersonCreateView;
@@ -26,18 +27,24 @@ public class PersonCreateController {
     @FXML
     public Button createButton;
     @FXML
-    private TextField newUsername;
+    private TextField first_nameTextField;
     @FXML
-    private TextField newName;
+    private TextField surnameTextField;
 
     @FXML
-    private TextField newSurname;
+    private TextField emailTextField;
 
     @FXML
-    private TextField newCheck;
+    private TextField passwordTextField;
 
     @FXML
-    private TextField newPassword;
+    private ComboBox positionComboBox;
+    
+    @FXML
+    private TextField salaryTextField;
+    
+    @FXML
+    private TextField primary_account_numberTextField;
 
     private PersonService personService;
     private PersonRepository personRepository;
@@ -49,12 +56,11 @@ public class PersonCreateController {
         personService = new PersonService(personRepository);
 
         validation = new ValidationSupport();
-        validation.registerValidator(newUsername, Validator.createEmptyValidator("Cell username must not be empty."));
-        validation.registerValidator(newName, Validator.createEmptyValidator("Cell name must not be empty."));
-        validation.registerValidator(newSurname, Validator.createEmptyValidator("Cell surname must not be empty."));
-        validation.registerValidator(newCheck, Validator.createEmptyValidator("Cell security check results must not be empty."));
-        validation.registerValidator(newPassword, Validator.createEmptyValidator("Cell password must not be empty."));
-
+        validation.registerValidator(first_nameTextField, Validator.createEmptyValidator("Cell name must not be empty."));
+        validation.registerValidator(surnameTextField, Validator.createEmptyValidator("Cell surname must not be empty."));
+        validation.registerValidator(emailTextField, Validator.createEmptyValidator("Cell security check results must not be empty."));
+        validation.registerValidator(passwordTextField, Validator.createEmptyValidator("Cell password must not be empty."));
+   
         createButton.disableProperty().bind(validation.invalidProperty());
 
         logger.info("PersonCreateController initialized");
@@ -62,20 +68,23 @@ public class PersonCreateController {
 
     @FXML
     void handleCreateNewPerson(ActionEvent event) {
-        String password = newPassword.getText();
-        String first_name = newName.getText();
-        String last_name = newSurname.getText();
-        String security_check = newCheck.getText();
-        String username = newUsername.getText();
+        String password = passwordTextField.getText();
+        String first_name = first_nameTextField.getText();
+        String surname = surnameTextField.getText();
+        String email = emailTextField.getText();
+        String position = positionComboBox.getValue().toString();
+        String salary = salaryTextField.getText();
+        String primary_account_number = primary_account_numberTextField.getText();
 
 
         PersonCreateView personCreateView = new PersonCreateView();
-        personCreateView.setPassword(password.toCharArray());
+        personCreateView.setPassword(password);
         personCreateView.setFirst_name(first_name);
-        personCreateView.setLast_name(last_name);
-        personCreateView.setSecurity_check(security_check);
-        personCreateView.setUsername(username);
-
+        personCreateView.setSurname(surname);
+        personCreateView.setEmail(email);
+        personCreateView.setPosition(position);
+        personCreateView.setSalary(salary);
+        personCreateView.setPrimary_account_number(primary_account_number);
 
         personService.createPerson(personCreateView);
 

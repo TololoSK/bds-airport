@@ -72,36 +72,86 @@ public class PersonRepository {
         }
     }
         public void createPerson(PersonCreateView personCreateView) {
-        String insertPersonSQL = "INSERT INTO bds.person (first_name, last_name, check_results) VALUES (?,?,?)";
+        String insertEmployeeSQL = "INSERT INTO employee (first_name, surname, email, password, id_employee_type) VALUES (?,?,?,?, (SELECT id_employee_type FROM employee_type WHERE position = ?))";
+        String insertSalarySQL = "INSERT INTO salary (salary, paid_at, primary_account_number, id_employee) VALUES (?,CURRENT_DATE,?,?)";
         try (Connection connection = DataSourceConfig.getConnection();
              // would be beneficial if I will return the created entity back
-             PreparedStatement preparedStatement = connection.prepareStatement(insertPersonSQL, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployeeSQL, Statement.RETURN_GENERATED_KEYS)) {
             // set prepared statement variables
             preparedStatement.setString(1, personCreateView.getFirst_name());
-            preparedStatement.setString(2, personCreateView.getLast_name());
-            preparedStatement.setString(3, personCreateView.getSecurity_check());
+            preparedStatement.setString(2, personCreateView.getSurname());
+            preparedStatement.setString(3, personCreateView.getEmail());
+            preparedStatement.setString(4, personCreateView.getPassword());
+            preparedStatement.setString(5, personCreateView.getPosition());
+
+            System.out.println(personCreateView.getPassword());
+            System.out.println(personCreateView.getPosition());
 
             int affectedRows = preparedStatement.executeUpdate();
-
+            long insertedID = 0;
+           
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    insertedID = resultSet.getLong("id_employee");
+                }
+            }
+            
             if (affectedRows == 0) {
                 throw new DataAccessException("Creating person failed, no rows affected.");
             }
+
+            try (PreparedStatement ps = connection.prepareStatement(insertSalarySQL, Statement.RETURN_GENERATED_KEYS)) {
+            	System.out.println(personCreateView.getSalary());
+                ps.setDouble(1, Double.parseDouble(personCreateView.getSalary()));
+                ps.setString(2, personCreateView.getPrimary_account_number());
+                ps.setLong(3, insertedID);
+                
+                affectedRows = ps.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new DataAccessException("Creating salary failed, no rows affected.");
+                }
+            } catch (SQLException e) {
+            	e.printStackTrace();
+                throw new DataAccessException("This salary for edit does not exist.");
+            }  
+            
         } catch (SQLException e) {
+        	e.printStackTrace();
             throw new DataAccessException("Creating person failed operation on the database failed.");
         }
     }
+        
+    public void removePerson(PersonEditView personEditView) {
+    	String removePersonSQL = "DELETE FROM employee WHERE id_employee=?";
+    	
+    	try (Connection connection = DataSourceConfig.getConnection();
+               PreparedStatement preparedStatement = connection.prepareStatement(removePersonSQL, Statement.RETURN_GENERATED_KEYS)) {
+               // set prepared statement variables
+               preparedStatement.setLong(1, personEditView.getId());
+               
+               int affectedRows = preparedStatement.executeUpdate();
+
+               if (affectedRows == 0) {
+                   throw new DataAccessException("Creating salary failed, no rows affected.");
+               }
+           } catch (SQLException e) {
+        	   e.printStackTrace();
+               throw new DataAccessException("Remove person failed operation on the database failed.");
+           }
+    }
 
     public void editPerson(PersonEditView personEditView) {
-        String insertPersonSQL = "UPDATE passenger SET id = ?, first_name = ?, last_name = ?, passport_number = ? WHERE id= ?";
-        String checkIfExists = "SELECT passport_number FROM passenger WHERE id = ?";
+        String insertPersonSQL = "UPDATE employee SET first_name = ?, surname = ?, email = ? WHERE id_employee= ?";
+        String checkIfExists = "SELECT id_employee FROM employee WHERE id_employee = ?";
         try (Connection connection = DataSourceConfig.getConnection();
              // would be beneficial if I will return the created entity back
              PreparedStatement preparedStatement = connection.prepareStatement(insertPersonSQL, Statement.RETURN_GENERATED_KEYS)) {
             // set prepared statement variables
             preparedStatement.setString(1, personEditView.getFirst_name());
-            preparedStatement.setString(2, personEditView.getLast_name());
-            preparedStatement.setString(3, personEditView.getPassport_number());
-            preparedStatement.setLong(5, personEditView.getId());
+            preparedStatement.setString(2, personEditView.getSurname());
+            preparedStatement.setString(3, personEditView.getEmail());
+            preparedStatement.setLong(4, personEditView.getId());
 
             try {
             connection.setAutoCommit(false);
@@ -109,6 +159,7 @@ public class PersonRepository {
                     ps.setLong(1, personEditView.getId());
                     ps.execute();
                 } catch (SQLException e) {
+                	e.printStackTrace();
                     throw new DataAccessException("This person for edit does not exist.");
                 }
 
