@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.airport.controller.PersonsController">
+   <content>
+      <AnchorPane prefHeight="398.0" prefWidth="598.0">
+         <children>
+            <TableView fx:id="systemPassengerTableView" prefHeight="386.0" prefWidth="623.0">
+              <columns>
+                  <TableColumn fx:id="id_employee" prefWidth="99.40000915527344" text="Employee ID" />
+                  <TableColumn fx:id="first_name" prefWidth="114.0" text="Name" />
+                  <TableColumn fx:id="surname" prefWidth="112.5999755859375" text="Surname" />
+                  <TableColumn fx:id="email" prefWidth="140.4000244140625" text="Email" />
+              </columns>
+            </TableView>
+            <Button fx:id="addPassengerButton" layoutX="21.0" layoutY="398.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Add passenger" />
+            <Button fx:id="refreshButton" layoutX="150.0" layoutY="398.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Refresh" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
