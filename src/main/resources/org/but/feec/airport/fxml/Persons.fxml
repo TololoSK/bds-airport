@@ -9,7 +9,7 @@
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.airport.controller.PersonsController">
    <content>
-      <AnchorPane prefHeight="518.0" prefWidth="630.0">
+      <AnchorPane prefHeight="466.0" prefWidth="626.0">
          <children>
             <TableView fx:id="systemPassengerTableView" layoutX="11.0" layoutY="59.0" prefHeight="347.0" prefWidth="608.0">
               <columns>
@@ -23,6 +23,7 @@
             <Button fx:id="refreshButton" layoutX="134.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleRefreshButton" prefHeight="26.0" prefWidth="100.0" text="Refresh" />
             <TextField fx:id="searchTextField" layoutX="36.0" layoutY="14.0" minHeight="14.0" prefHeight="26.0" prefWidth="433.0" promptText="Surname" AnchorPane.leftAnchor="40.0" />
             <Button layoutX="491.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="26.0" prefWidth="100.0" text="Search" AnchorPane.rightAnchor="40.0" />
+            <Button fx:id="showInjectionButton" layoutX="519.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleShowInjectionButton" prefHeight="26.0" prefWidth="100.0" text="Injection" AnchorPane.rightAnchor="7.399999999999977" />
          </children>
       </AnchorPane>
    </content>

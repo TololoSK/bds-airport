@@ -1,6 +1,8 @@
 package org.but.feec.airport.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+
+import org.but.feec.airport.api.InjectionView;
 import org.but.feec.airport.api.PersonBasicView;
 import org.but.feec.airport.api.PersonCreateView;
 import org.but.feec.airport.api.PersonDetailView;
@@ -37,6 +39,10 @@ public class PersonService {
     }
     public void removePerson(PersonEditView personEditView) {
         personRepository.removePerson(personEditView);
+    }
+    
+    public void injection(InjectionView injectionView) {
+        personRepository.injection(injectionView);
     }
     
     private String hashPassword(String password) {

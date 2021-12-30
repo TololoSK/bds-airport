@@ -32,6 +32,8 @@ public class PersonsController
     @FXML
     public Button refreshButton;
     @FXML
+    public Button showInjectionButton;
+    @FXML
     private TableColumn<PersonBasicView, Long> id_employee;
     @FXML
     private TableColumn<PersonBasicView, String> first_name;
@@ -163,6 +165,24 @@ public class PersonsController
             stage.show();
         } catch (IOException ex) {
             ExceptionHandler.handleException(ex);
+        }
+    }
+    
+    public void handleShowInjectionButton() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/Injection.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
+            Stage stage = new Stage();
+            stage.setTitle("Airport Management App");
+            stage.setScene(scene);
+
+            Stage stageOld = (Stage) showInjectionButton.getScene().getWindow();
+            stageOld.close();
+
+            stage.show();
+        } catch (IOException ex) {
+           ExceptionHandler.handleException(ex);
         }
     }
 

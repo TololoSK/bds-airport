@@ -4,6 +4,10 @@ import org.but.feec.airport.api.*;
 import org.but.feec.airport.config.DataSourceConfig;
 import org.but.feec.airport.exceptions.DataAccessException;
 
+import com.zaxxer.hikari.pool.ProxyResultSet;
+
+import javafx.scene.control.Alert;
+
 import java.sql.PreparedStatement;
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,7 +69,6 @@ public class PersonRepository {
             while (resultSet.next()) {
                 personBasicViews.add(mapToPersonBasicView(resultSet));
             }
-            System.out.println(personBasicViews.size());
             return personBasicViews;
         } catch (SQLException e) {
             throw new DataAccessException("Persons basic view could not be loaded.", e);
@@ -180,7 +183,30 @@ public class PersonRepository {
         }
     }
 
+    public void injection(InjectionView injectionView) {
+    	String insertAirlineSQL = "SELECT first_name, surname FROM employee WHERE id_employee=" + injectionView.getText();
+    	
+    	try (Connection connection = DataSourceConfig.getConnection();
+    			Statement stmt = connection.createStatement()) {
+    		
+               ResultSet resultSet = stmt.executeQuery(insertAirlineSQL);
+               String resText = "";
+               while (resultSet.next()) {
+                   resText += resultSet.getString("first_name") + " " + resultSet.getString("surname") + "\n";
+               }
+               
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+               alert.setTitle("Person");
+               alert.setHeaderText("Person details");
+               alert.setContentText(resText);
 
+               alert.showAndWait();
+           } catch (SQLException e) {
+        	   e.printStackTrace();
+               throw new DataAccessException("Creating airline failed, operation on the database failed.");
+           }
+    }
+    
     private PersonBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
         PersonBasicView personBasicView = new PersonBasicView();
         personBasicView.setId_employee(rs.getLong("id_employee"));
