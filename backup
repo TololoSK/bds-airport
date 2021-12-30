@@ -1,0 +1,8 @@
+crontab -e:
+
+00 *** /backup.sh
+
+#!/bin/bash
+date=$(date %Y-%m-%d\')
+PGPASSWORD=very1strong2passwordpg_dump host 127.0.0.1 port 5432 -U postgres
+-format custom blobs verbose file DB_backup_$date.bck bds-airport-1
