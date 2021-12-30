@@ -52,9 +52,9 @@ public class LoginController {
     private void initialize() {
         GlyphsDude.setIcon(login, FontAwesomeIcon.SIGN_IN, "1em");
         GlyphsDude.setIcon(usernameLabel, FontAwesomeIcon.USER, "2em");
-        GlyphsDude.setIcon(passwordLabel, FontAwesomeIcon.USER_SECRET, "2em");
-        usernameField.setOnKeyPressed(event -> {//skrátený zápis anonymnej funkcie
-            if (event.getCode() == KeyCode.ENTER) {//zavolá sa enterom metóda
+        GlyphsDude.setIcon(passwordLabel, FontAwesomeIcon.LOCK, "2em");
+        usernameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
                 handleSignIn();
             }
         });
@@ -77,16 +77,16 @@ public class LoginController {
         login.disableProperty().bind(validation.invalidProperty());
     }
 
-    private void initializeServices() {//voláme logiku controlleru
+    private void initializeServices() {
         personRepository = new PersonRepository();
         authService = new AuthService(personRepository);
     }
 
     public void signInActionHandler(ActionEvent event) {
         handleSignIn();
-    } //metóda ktorá mapuje
+    }
 
-    private void handleSignIn() { //či sedia prihlasovacie údaje
+    private void handleSignIn() { 
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -108,7 +108,7 @@ public class LoginController {
             fxmlLoader.setLocation(App.class.getResource("fxml/Persons.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
             Stage stage = new Stage();
-            stage.setTitle("BDS Airport App");
+            stage.setTitle("Airport Management App");
             stage.setScene(scene);
 
             Stage stageOld = (Stage) login.getScene().getWindow();
@@ -126,7 +126,7 @@ public class LoginController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Unauthenticated");
         alert.setHeaderText("The user is not authenticated");
-        alert.setContentText("Please provide a valid username and password");//ww  w . j  a  va2s  .  co  m
+        alert.setContentText("Please provide a valid username and password");
 
         alert.showAndWait();
     }

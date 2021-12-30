@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DataSourceConfig { //načítanie údajov z DB
+public class DataSourceConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
 
@@ -38,7 +38,7 @@ public class DataSourceConfig { //načítanie údajov z DB
         }
     }
 
-    private DataSourceConfig() { //privátny konštruktor aby sme nemohli vytvoriť instanciu
+    private DataSourceConfig() {
     }
 
     public static DataSource getDataSource() {

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.but.feec.airport.App;
 import org.but.feec.airport.api.PersonBasicView;
 import org.but.feec.airport.api.PersonDetailView;
+import org.but.feec.airport.api.PersonEditView;
 import org.but.feec.airport.data.PersonRepository;
 import org.but.feec.airport.exceptions.ExceptionHandler;
 import org.but.feec.airport.service.PersonService;
@@ -24,6 +25,8 @@ import java.util.List;
 public class PersonsController
 { private static final Logger logger = LoggerFactory.getLogger(PersonsController.class);
 
+	@FXML
+	public TextField searchTextField;
     @FXML
     public Button addPassengerButton;
     @FXML
@@ -67,8 +70,8 @@ public class PersonsController
     }
 
     private void initializeTableViewSelection() {
-        MenuItem edit = new MenuItem("Edit passenger");
-        MenuItem detailedView = new MenuItem("Detailed passenger view");
+        MenuItem edit = new MenuItem("Edit employee");
+        MenuItem detailedView = new MenuItem(" Employee detailed view");
         edit.setOnAction((ActionEvent event) -> {
             PersonBasicView personView = systemPassengerTableView.getSelectionModel().getSelectedItem();
             try {
@@ -76,7 +79,7 @@ public class PersonsController
                 fxmlLoader.setLocation(App.class.getResource("fxml/PersonEdit.fxml"));
                 Stage stage = new Stage();
                 stage.setUserData(personView);
-                stage.setTitle("BDS JavaFX Edit Passenger");
+                stage.setTitle("Edit Employee");
 
                 PersonEditController controller = new PersonEditController();
                 controller.setStage(stage);
@@ -103,7 +106,7 @@ public class PersonsController
                 PersonDetailView personDetailView = personService.getPersonDetailView(personId);
 
                 stage.setUserData(personDetailView);
-                stage.setTitle("BDS JavaFX Passenger Detailed View");
+                stage.setTitle("Employee Detailed View");
 
                 PersonDetailController controller = new PersonDetailController();
                 controller.setStage(stage);
@@ -127,14 +130,23 @@ public class PersonsController
     }
 
     private ObservableList<PersonBasicView> initializePersonsData() {
-        List<PersonBasicView> persons = personService.getPersonBasicView();
+        List<PersonBasicView> persons = personService.getPersonBasicView("");
         return FXCollections.observableArrayList(persons);
     }
 
 
-
     public void handleExitMenuItem(ActionEvent event) {
         System.exit(0);
+    }
+    
+    public void handleSearchButton(ActionEvent event) {
+    	String searchString = searchTextField.getText();
+
+        List<PersonBasicView> persons = personService.getPersonBasicView(searchString);
+        systemPassengerTableView.setItems(FXCollections.observableArrayList(persons));
+        systemPassengerTableView.refresh();
+        systemPassengerTableView.sort();
+        
     }
 
     public void handleAddPassenger(ActionEvent actionEvent) {
@@ -143,7 +155,7 @@ public class PersonsController
             fxmlLoader.setLocation(App.class.getResource("fxml/PersonCreate.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 500);
             Stage stage = new Stage();
-            stage.setTitle("BDS JavaFX Create Passenger");
+            stage.setTitle("New Employee");
             stage.setScene(scene);
 
 

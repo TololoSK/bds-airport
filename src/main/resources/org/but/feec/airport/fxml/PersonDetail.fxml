@@ -32,8 +32,8 @@
                 <TextField fx:id="surnameTextField" promptText="Enter surname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="emailTextField" promptText="Enter email address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="positionTextField" promptText="Enter position" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="salaryTextField" promptText="Enter salary" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <TextField fx:id="primary_account_numberTextField" promptText="Enter account number" GridPane.columnIndex="1" GridPane.rowIndex="6" />     
+                <TextField fx:id="salaryTextField" promptText="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="primary_account_numberTextField" promptText="" GridPane.columnIndex="1" GridPane.rowIndex="6" />     
             </children>
         </GridPane>
     </children>

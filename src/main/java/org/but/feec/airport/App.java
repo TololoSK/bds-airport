@@ -26,7 +26,7 @@ public class App extends Application {
         	loader.setLocation(getClass().getResource("Login.fxml"));
         	Parent content = loader.load(); 
         	System.out.println("APP/start");
-            primaryStage.setTitle("BDS Airport");
+            primaryStage.setTitle("Airport Login");
             Scene scene = new Scene(content);
             primaryStage.setScene(scene);
             primaryStage.show();

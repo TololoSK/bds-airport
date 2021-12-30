@@ -55,12 +55,12 @@ public class PersonRepository {
         return null;
     }
 
-    public List<PersonBasicView> getPersonBasicView() {
+    public List<PersonBasicView> getPersonBasicView(String search) {
         try (Connection connection = DataSourceConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT id_employee, first_name, surname, email" +
-                             " FROM employee");
-             ResultSet resultSet = preparedStatement.executeQuery();) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_employee, first_name, surname, email" + 
+            		 								" FROM employee WHERE surname LIKE ?")) {
+        	preparedStatement.setString(1, "%" + search + "%");
+        	ResultSet resultSet = preparedStatement.executeQuery();
             List<PersonBasicView> personBasicViews = new ArrayList<>();
             while (resultSet.next()) {
                 personBasicViews.add(mapToPersonBasicView(resultSet));
@@ -71,7 +71,8 @@ public class PersonRepository {
             throw new DataAccessException("Persons basic view could not be loaded.", e);
         }
     }
-        public void createPerson(PersonCreateView personCreateView) {
+    
+    public void createPerson(PersonCreateView personCreateView) {
         String insertEmployeeSQL = "INSERT INTO employee (first_name, surname, email, password, id_employee_type) VALUES (?,?,?,?, (SELECT id_employee_type FROM employee_type WHERE position = ?))";
         String insertSalarySQL = "INSERT INTO salary (salary, paid_at, primary_account_number, id_employee) VALUES (?,CURRENT_DATE,?,?)";
         try (Connection connection = DataSourceConfig.getConnection();

@@ -20,8 +20,8 @@ public class PersonService {
         return personRepository.findPersonDetailedView(id);
     }
 
-    public List<PersonBasicView> getPersonBasicView() {
-        return personRepository.getPersonBasicView();
+    public List<PersonBasicView> getPersonBasicView(String search) {
+        return personRepository.getPersonBasicView(search);
     }
 
 

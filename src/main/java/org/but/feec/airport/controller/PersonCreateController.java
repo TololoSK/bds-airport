@@ -56,10 +56,11 @@ public class PersonCreateController {
         personService = new PersonService(personRepository);
 
         validation = new ValidationSupport();
-        validation.registerValidator(first_nameTextField, Validator.createEmptyValidator("Cell name must not be empty."));
+        validation.registerValidator(first_nameTextField, Validator.createEmptyValidator("Cell first name must not be empty."));
         validation.registerValidator(surnameTextField, Validator.createEmptyValidator("Cell surname must not be empty."));
-        validation.registerValidator(emailTextField, Validator.createEmptyValidator("Cell security check results must not be empty."));
+        validation.registerValidator(emailTextField, Validator.createEmptyValidator("Cell email must not be empty."));
         validation.registerValidator(passwordTextField, Validator.createEmptyValidator("Cell password must not be empty."));
+        validation.registerValidator(positionComboBox, Validator.createEmptyValidator("Position must be selected."));
    
         createButton.disableProperty().bind(validation.invalidProperty());
 
