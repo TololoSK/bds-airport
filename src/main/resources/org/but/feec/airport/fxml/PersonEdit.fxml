@@ -7,6 +7,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?><?import java.lang.String?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -26,9 +29,21 @@
                 <Label prefHeight="31.0" prefWidth="145.0" text="Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                 <Label prefHeight="28.0" prefWidth="146.0" text="Surname:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                 <Label prefHeight="22.0" prefWidth="145.0" text="Email address:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                <Label prefHeight="22.0" prefWidth="145.0" text="Select position:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
                 <TextField fx:id="nameTextField" promptText="Enter name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="surnameTextField" promptText="Enter surname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="emailTextField" promptText="Enter email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <ComboBox fx:id="positionComboBox" prefHeight="26.0" prefWidth="330.0" promptText="Select position" GridPane.columnIndex="1" GridPane.rowIndex="4">
+	            	<items>
+	            		<FXCollections fx:factory="observableArrayList">
+				            <String fx:value="Cashier" />
+				            <String fx:value="Flight assistant" />
+				            <String fx:value="Pilot" />
+				            <String fx:value="Cleaner" />
+				            <String fx:value="Engineer" />
+			        	</FXCollections>
+	            	</items>
+	            </ComboBox>
             	<Label prefHeight="32.0" prefWidth="148.0" text="Employee ID:" GridPane.halignment="RIGHT" />
             	<TextField fx:id="idTextField" promptText="Enter ID" GridPane.columnIndex="1" />
             </children>

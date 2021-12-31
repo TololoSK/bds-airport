@@ -10,8 +10,17 @@ public class PersonBasicView {
     StringProperty first_name= new SimpleStringProperty();
     StringProperty surname = new SimpleStringProperty();
     StringProperty email = new SimpleStringProperty();
+    StringProperty position = new SimpleStringProperty();
 
-    public Long getId_employee() {
+    public String getPosition() {
+		return positionProperty().get();
+	}
+
+	public void setPosition(String position) {
+		this.positionProperty().setValue(position);
+	}
+
+	public Long getId_employee() {
         return id_employeeProperty().get();
     }
 
@@ -48,5 +57,8 @@ public class PersonBasicView {
     }
     public StringProperty emailProperty() {
         return email;
+    }
+    public StringProperty positionProperty() {
+        return position;
     }
 }

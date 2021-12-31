@@ -61,8 +61,10 @@ public class PersonRepository {
 
     public List<PersonBasicView> getPersonBasicView(String search) {
         try (Connection connection = DataSourceConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_employee, first_name, surname, email" + 
-            		 								" FROM employee WHERE surname LIKE ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT employee.id_employee, employee.first_name, employee.surname, employee.email, employee_type.position" + 
+            		 								" FROM employee" +
+            		 								" LEFT JOIN employee_type ON employee_type.id_employee_type = employee.id_employee_type " +
+            		 								"WHERE employee.surname LIKE ? ")) {
         	preparedStatement.setString(1, "%" + search + "%");
         	ResultSet resultSet = preparedStatement.executeQuery();
             List<PersonBasicView> personBasicViews = new ArrayList<>();
@@ -146,7 +148,7 @@ public class PersonRepository {
     }
 
     public void editPerson(PersonEditView personEditView) {
-        String insertPersonSQL = "UPDATE employee SET first_name = ?, surname = ?, email = ? WHERE id_employee= ?";
+        String insertPersonSQL = "UPDATE employee SET first_name = ?, surname = ?, email = ?, id_employee_type = (SELECT id_employee_type FROM employee_type WHERE position = ?) WHERE id_employee = ?";
         String checkIfExists = "SELECT id_employee FROM employee WHERE id_employee = ?";
         try (Connection connection = DataSourceConfig.getConnection();
              // would be beneficial if I will return the created entity back
@@ -155,7 +157,8 @@ public class PersonRepository {
             preparedStatement.setString(1, personEditView.getFirst_name());
             preparedStatement.setString(2, personEditView.getSurname());
             preparedStatement.setString(3, personEditView.getEmail());
-            preparedStatement.setLong(4, personEditView.getId());
+            preparedStatement.setString(4, personEditView.getPosition());
+            preparedStatement.setLong(5, personEditView.getId());
 
             try {
             connection.setAutoCommit(false);
@@ -168,6 +171,7 @@ public class PersonRepository {
                 }
 
                 int affectedRows = preparedStatement.executeUpdate();
+                System.out.println(affectedRows);
 
                 if (affectedRows == 0) {
                     throw new DataAccessException("Creating person failed, no rows affected.");
@@ -213,6 +217,7 @@ public class PersonRepository {
         personBasicView.setFirst_name(rs.getString("first_name"));
         personBasicView.setSurname(rs.getString("surname"));
         personBasicView.setEmail(rs.getString("email"));
+        personBasicView.setPosition(rs.getString("position"));
         //personBasicView.setCountry_of_residence(rs.getString("country_of_residence"));
         return personBasicView;
     }

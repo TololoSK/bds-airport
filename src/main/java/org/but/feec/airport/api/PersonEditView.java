@@ -7,6 +7,7 @@ public class PersonEditView {
     private String first_name;
     private String surname;
     private String email;
+    private String position;
 
     public Long getId() {
         return id;
@@ -26,13 +27,24 @@ public class PersonEditView {
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email=email;}
     
+    public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+    
     @Override
     public String toString() {
         return "PersonCreateView{" +
                 "first_name='" + first_name + '\'' +
                 ", last_name='" + surname + '\'' +
                 ", email='" + email + '\'' +
+                ", position='" + position + '\''+
                  '\''+
                 '}';
     }
+
+	
 }

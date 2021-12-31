@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,6 +34,8 @@ public class PersonEditController {
     @FXML
     private TextField emailTextField;
     @FXML
+    private ComboBox<String> positionComboBox; //toto
+    @FXML
     private TextField idTextField;
 
     private PersonService personService;
@@ -53,6 +56,7 @@ public class PersonEditController {
         validation.registerValidator(nameTextField, Validator.createEmptyValidator("Cell name must not be empty."));
         validation.registerValidator(surnameTextField, Validator.createEmptyValidator("Cell surname must not be empty."));
         validation.registerValidator(emailTextField, Validator.createEmptyValidator("Cell email must not be empty."));
+        validation.registerValidator(positionComboBox, Validator.createEmptyValidator("Cell position must not be empty.")); //toto
 
         editButton.disableProperty().bind(validation.invalidProperty());
 
@@ -72,6 +76,8 @@ public class PersonEditController {
             idTextField.setText(String.valueOf(personBasicView.getId_employee()));
             surnameTextField.setText(personBasicView.getSurname());
             nameTextField.setText(personBasicView.getFirst_name());
+            positionComboBox.setValue(personBasicView.getPosition());
+            System.out.println(personBasicView.getPosition());
         }
     }
 
@@ -92,6 +98,7 @@ public class PersonEditController {
         String email = emailTextField.getText();
         String surname = surnameTextField.getText();
         String first_name = nameTextField.getText();
+        String position = positionComboBox.getValue().toString(); //toto
         Long id = Long.valueOf(idTextField.getText());
 
         PersonEditView personEditView = new PersonEditView();
@@ -99,6 +106,7 @@ public class PersonEditController {
         personEditView.setEmail(email);
         personEditView.setFirst_name(first_name);
         personEditView.setSurname(surname);
+        personEditView.setPosition(position);	//toto
 
         personService.editPerson(personEditView);
 

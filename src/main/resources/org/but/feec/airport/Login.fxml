@@ -21,7 +21,7 @@
                 <RowConstraints maxHeight="39.400000000000006" minHeight="10.0" prefHeight="39.400000000000006" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="usernameField" prefHeight="28.0" prefWidth="243.0" promptText="username" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <TextField fx:id="usernameField" prefHeight="28.0" prefWidth="243.0" promptText="email" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <font>
                         <Font size="15.0" />
                     </font></TextField>
