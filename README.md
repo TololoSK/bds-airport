@@ -6,7 +6,7 @@ Používa Javu vo verzii 11.0.1, Maven vo verzií 3.8.4 a grafické užívateľk
 
 <h3>Cieľ aplikácie</h3>
 Letisko je veľká "organizácia" s rozlohou stoviek až tisícov hektárov, kde pracuje mnoho ľudí. Cieľom tejto aplikácia je zefektívniť spravovanie personálu letiska.
-Hlavnými dôvodmi sú rozdelenie práce zamestnancov, pridanie/odobranie zamestancov, platové podmienky zamestnancov.
+Hlavnými dôvodmi sú rozdelenie práce zamestnancov, pridanie/odobranie zamestnancov, platové podmienky zamestnancov.
 
 Ako supustiť aplikáciu
 ----------------------
